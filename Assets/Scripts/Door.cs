@@ -2,29 +2,28 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+
     private Renderer _renderer;
+    private bool isActivated = false;
 
     private void Start()
     {
         _renderer = GetComponent<Renderer>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Player"))
+        float distance = Vector3.Distance(GameObject.Find("Player(Clone)").transform.position, transform.position);
+        if (isActivated)
         {
-            ChangeColor(Color.green);
-        }
-    }
-
-    private void ChangeColor(Color color)
-    {
-        if (_renderer != null)
-        {
-            for (int i = 0; i < _renderer.GetComponentsInChildren<Renderer>().Length; i++)
+            return;
+        } else {
+            if (distance < 1.2f)
             {
-                _renderer.GetComponentsInChildren<Renderer>()[i].material.color = color;
+                isActivated = true;
+                _renderer.material.color = Color.green;
+                Game.targetTime += 10.0f;                
             }
-        }
+        }   
     }
 }

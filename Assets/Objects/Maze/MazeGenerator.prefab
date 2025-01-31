@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockCellPrefab: {fileID: 8637159190715794044, guid: 0bea42fcf414ca74f9cb6c45ef526039, type: 3}
-  _doorPrefab: {fileID: 8522775019674536331, guid: c5662770230c1e84c94893ff6abe2d92, type: 3}
-  blockSize: 10
-  difficulty: 1
+  _doorPrefab: {fileID: 2173247781084845579, guid: fc800b4629cd0ed44b06f52c037715f8, type: 3}
+  _exitPrefab: {fileID: 5940402974501513645, guid: 40f58a1ada5e5234bb66b449f9d8430c, type: 3}
+  blockSize: 6

@@ -7,17 +7,17 @@ public class MazeGenerator : MonoBehaviour
 {
     [SerializeField] private BlockCell _blockCellPrefab;
     [SerializeField] private GameObject _doorPrefab;
+    [SerializeField] private GameObject _exitPrefab;
 
     [SerializeField] private BlockCell[,] _blockGrid;
-    [SerializeField] private int blockSize = 10;
-    [SerializeField] private int difficulty = 1;
+    [SerializeField] private int blockSize = 7;
 
     private List<GameObject> generatedBlocks = new List<GameObject>(); // List to keep track of generated blocks
     
 
     void Start()
     {
-        int blocksPerMaze = difficulty * 5;
+        int blocksPerMaze = PlayerPrefs.GetInt("Difficulty") * 5;
         GenerateMaze(blocksPerMaze);
     }
 
@@ -45,7 +45,13 @@ public class MazeGenerator : MonoBehaviour
             }
             _blockGrid[blockSize - 1, exit].ClearRightWall();
             GameObject door = Instantiate(_doorPrefab, new Vector3(blockSize, 0, exit), Quaternion.identity, block.transform);
-            door.transform.position += new Vector3(-0.5f, 0.5f, 0);
+            door.transform.position += new Vector3(-0.5f, 0, 0);
+            door.transform.rotation = Quaternion.Euler(-90, 0, 0);
+            if (i == blocksPerMaze - 1)
+            {
+                GameObject exitBlock = Instantiate(_exitPrefab, new Vector3(blockSize, 0, exit), Quaternion.identity, block.transform);
+                exitBlock.transform.position += new Vector3(1, -1, 0);
+            }
             entrance = exit;
             exit = Random.Range(0, blockSize);
             GenerateBlock(null, _blockGrid[0, 0]);
